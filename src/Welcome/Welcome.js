@@ -2,7 +2,7 @@ import React from "react";
 
 const Welcome = () => {
   return (
-    <div className="flex-col w-full h-screen">
+    <div className="flex-col w-[95%] h-screen">
       <h2 className="ml-5 flex mt-2 text-2xl">User guide menue.</h2>
       <div className="ml-5 mt-5 flex-col w-full">
         <ol className="flex-col w-fit">

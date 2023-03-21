@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const ContolPanel = (props) => {
     const [flag, setFlag] = useState(false);
     const [choose, setChoose] = useState('Select Sorting Algorithm.');
+    const [show,setShow]=useState(false)
     function chooseHandler() {
         setFlag(true);
     }
@@ -84,7 +85,7 @@ const ContolPanel = (props) => {
     }
     else {
         return (
-            <div className="flex w-fit">
+            <div className=" w-fit">
                 <button onClick={chooseHandler} onChange={chooseAlgorithmHandler}>{choose}</button>
                 <button onClick={generateArrayHandler}>Generate Array.</button>
                 <button onClick={resetArrayHandler}>Reset Array.</button>

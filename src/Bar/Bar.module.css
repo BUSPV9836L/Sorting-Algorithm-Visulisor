@@ -1,7 +1,7 @@
 .bar{
     display: flex;
     flex-direction: row;
-    background-color: aqua;
+    background-image: linear-gradient(blue, yellow);
     width: 2px;
     margin: 1px;
 }
