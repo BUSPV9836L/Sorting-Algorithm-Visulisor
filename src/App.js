@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import SortingAlgorithmVisulisor from "./SortingAlgorithmVisulisor/SortingAlgorithmVisulisor"
 import { useState } from 'react';
 import MainHeader from './MainHeader/MainHeader';
 import ContolPanel from './ContolPanel/ControlPanel';
 import Welcome from './Welcome/Welcome';
-let sizeOfArray = 350;
+let width=window.screen.width;
+let sizeOfArray =Math.floor(width/4);
+console.log(sizeOfArray);
 let dummy = [];
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

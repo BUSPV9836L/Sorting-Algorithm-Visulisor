@@ -1,9 +1,9 @@
 import React from "react";
-import classes from "./MainHeader.module.css";
+
 const MainHeader = ()=>{
 return(
-    <div className={classes["container"]}>
-        <h1>Sorting Algorithm Visulisor!</h1>
+    <div className='flex w-full h-fit justify-center py-2 bg-blue-500'>
+        <h1 className="sm:text-3xl text-lg ">Sorting Algorithm Visulisor!</h1>
     </div>
 );
 }

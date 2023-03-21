@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import classes from "./ControlPanel.module.css";
 
 const ContolPanel = (props) => {
     const [flag, setFlag] = useState(false);
@@ -60,21 +59,32 @@ const ContolPanel = (props) => {
     }
     if (flag) {
         return (
-            <div className={classes["choose-algorithm"]} >
-                <header>Choose Sorting Algorith</header>
-                <button onClick={mergeSortHandler}>Merge Sort.</button>
-                <button onClick={quickSortHandler}>Quick Sort.</button>
-                {/* <button onClick={heapSortHandler}>Heap Sort.</button> */}
-                <button onClick={insertionSortHandler}>Insertion Sort.</button>
-                <button onClick={bubbleSortHandler}>Bubble Sort.</button>
-                <button onClick={selectionSortHandler}>Selection Sort.</button>
-                <button onClick={popUpHandler}>Close.</button>
+            <div className="absolute flex-col w-fit bg-transparent h-fit z-10">
+                <header className="w-[200px] bg-gradient-to-r from to-blue-500 to bg-yellow-400">Choose Sorting Algorith</header>
+                <div>
+                <button className="w-[200px] " onClick={mergeSortHandler}>Merge Sort.</button>
+                </div>
+                <div>
+                <button className="w-[200px]" onClick={quickSortHandler}>Quick Sort.</button>
+                </div>
+                <div>
+                <button className="w-[200px]" onClick={insertionSortHandler}>Insertion Sort.</button>
+                </div>
+                <div>
+                <button className="w-[200px]" onClick={bubbleSortHandler}>Bubble Sort.</button>
+                </div>
+                <div>
+                <button className="w-[200px]" onClick={selectionSortHandler}>Selection Sort.</button>
+                </div>
+                <div>
+                <button className="w-[200px]" onClick={popUpHandler}>Close.</button>
+                </div>
             </div>
         );
     }
     else {
         return (
-            <div className={classes["control-panel"]}>
+            <div className="flex w-fit">
                 <button onClick={chooseHandler} onChange={chooseAlgorithmHandler}>{choose}</button>
                 <button onClick={generateArrayHandler}>Generate Array.</button>
                 <button onClick={resetArrayHandler}>Reset Array.</button>
