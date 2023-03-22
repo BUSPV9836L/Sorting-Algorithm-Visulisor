@@ -1,43 +1,44 @@
-import React, { useEffect } from 'react';
-import './App.css';
-import SortingAlgorithmVisulisor from "./SortingAlgorithmVisulisor/SortingAlgorithmVisulisor"
-import { useState } from 'react';
-import MainHeader from './MainHeader/MainHeader';
-import ContolPanel from './ContolPanel/ControlPanel';
-import Welcome from './Welcome/Welcome';
-let sizeOfArray = 350;
+import React, { useEffect } from "react";
+import SortingAlgorithmVisulisor from "./SortingAlgorithmVisulisor/SortingAlgorithmVisulisor";
+import { useState } from "react";
+import MainHeader from "./MainHeader/MainHeader";
+import ContolPanel from "./ContolPanel/ControlPanel";
+import Welcome from "./Welcome/Welcome";
+let width = window.screen.width;
+let sizeOfArray = Math.floor(width / 4);
+console.log(sizeOfArray);
 let dummy = [];
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function App() {
   //Initilizing the array.
   const [array, setArray] = useState(dummy);
   const [WelcomeFlag, setWelcomeFlag] = useState(true);
+
   //updating the original array
   function updateArray(props) {
     setArray(() => {
       return [...props];
-    })
+    });
   }
   //Generating the new array.
   function generateArray() {
     setWelcomeFlag(false);
     for (let i = 0; i < sizeOfArray; i++) {
-      dummy[i] = Math.floor((Math.random() * 10000) + 1);
+      dummy[i] = Math.floor(Math.random() * 10000 + 1);
     }
     setArray(() => {
       return [...dummy];
-    })
+    });
   }
   //reseting the array;
   function resetArray() {
     setWelcomeFlag(true);
     setArray(() => {
       return [];
-    })
-
+    });
   }
   function swap(arr, xp, yp) {
     var temp = arr[xp];
@@ -51,8 +52,7 @@ function App() {
     for (i = 0; i < n - 1; i++) {
       min_idx = i;
       for (j = i + 1; j < n; j++) {
-        if (arr[j] < arr[min_idx])
-          min_idx = j;
+        if (arr[j] < arr[min_idx]) min_idx = j;
       }
 
       // Swap the found minimum element with the first element
@@ -70,10 +70,8 @@ function App() {
           swap(arr, j, j + 1);
           updateArray(arr);
           await sleep(10);
-
         }
       }
-
     }
   }
   async function insertionSort(arr, n) {
@@ -101,7 +99,7 @@ function App() {
 
     await Promise.all([
       quickSort(arr, start, index - 1),
-      quickSort(arr, index + 1, end)
+      quickSort(arr, index + 1, end),
     ]);
   }
 
@@ -149,7 +147,9 @@ function App() {
       right[i] = ele[mid + 1 + i];
     }
     await sleep(10);
-    let i = 0, j = 0, k = low;
+    let i = 0,
+      j = 0,
+      k = low;
     while (i < n1 && j < n2) {
       await sleep(10);
 
@@ -158,8 +158,7 @@ function App() {
         updateArray(ele);
         i++;
         k++;
-      }
-      else {
+      } else {
         ele[k] = right[j];
         updateArray(ele);
         j++;
@@ -206,7 +205,8 @@ function App() {
           quickSort={quickSort}
           mergeSort={mergeSort}
           // heapSort={heapSort}
-          arr={array} />
+          arr={array}
+        />
         <Welcome />
       </React.Fragment>
     );
@@ -214,7 +214,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <MainHeader />
+      <MainHeader/>
       <ContolPanel
         generateArray={generateArray}
         resetArray={resetArray}
@@ -223,7 +223,8 @@ function App() {
         insertionSort={insertionSort}
         quickSort={quickSort}
         mergeSort={mergeSort}
-        arr={array} />
+        arr={array}
+      />
       <SortingAlgorithmVisulisor array={array} />
     </React.Fragment>
   );

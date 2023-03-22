@@ -1,5 +1,4 @@
 import React from "react";
-import classes from "./SortingAlgorithmVisulisor.module.css";
 import Bar from "../Bar/Bar";
 
 const SortingAlgorithmVisulisor = (props) => {
@@ -10,13 +9,12 @@ const SortingAlgorithmVisulisor = (props) => {
         }
     }
     return (
-        <div className={classes['bar-container']}>
+        <div className='mx-auto w-[95%] items-end flex'>
             {
                 props.array.map((element) => {
-                    return <Bar height={(element/max)*window.screen.height/1.5} key={Math.random()}  />
+                    return <Bar height={(element/max)*window.screen.height/1.4} key={Math.random()}  />
                 })
             }
-            hi
         </div>
 
     );
