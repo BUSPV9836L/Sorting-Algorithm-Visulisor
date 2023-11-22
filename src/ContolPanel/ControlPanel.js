@@ -26,10 +26,9 @@ const ContolPanel = (props) => {
     }
     function quickSortHandler() {
         chooseAlgorithmHandler('Quick Sort.');
-
         setFlag(false);
         let array=[...props.arr];
-     props.quickSort(array,0,array.length);
+        props.quickSort(array,0,array.length);
     }
     // function heapSortHandler() {
     //     chooseAlgorithmHandler('Heap Sort.');
@@ -63,7 +62,7 @@ const ContolPanel = (props) => {
             <div className={classes["choose-algorithm"]} >
                 <header>Choose Sorting Algorith</header>
                 <button onClick={mergeSortHandler}>Merge Sort.</button>
-                <button onClick={quickSortHandler}>Quick Sort.</button>
+                {/* <button onClick={quickSortHandler}>Quick Sort.</button> */}
                 {/* <button onClick={heapSortHandler}>Heap Sort.</button> */}
                 <button onClick={insertionSortHandler}>Insertion Sort.</button>
                 <button onClick={bubbleSortHandler}>Bubble Sort.</button>
@@ -77,7 +76,7 @@ const ContolPanel = (props) => {
             <div className={classes["control-panel"]}>
                 <button onClick={chooseHandler} onChange={chooseAlgorithmHandler}>{choose}</button>
                 <button onClick={generateArrayHandler}>Generate Array.</button>
-                <button onClick={resetArrayHandler}>Reset Array.</button>
+                {/* <button onClick={resetArrayHandler}>Reset Array.</button> */}
             </div>
         );
     }

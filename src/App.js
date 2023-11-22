@@ -1,97 +1,81 @@
-import React, { useEffect } from 'react';
+// App.js
+
+import React, { useState } from 'react';
 import './App.css';
-import SortingAlgorithmVisulisor from "./SortingAlgorithmVisulisor/SortingAlgorithmVisulisor"
-import { useState } from 'react';
+import SortingAlgorithmVisulisor from "./SortingAlgorithmVisulisor/SortingAlgorithmVisulisor";
 import MainHeader from './MainHeader/MainHeader';
 import ContolPanel from './ContolPanel/ControlPanel';
 import Welcome from './Welcome/Welcome';
-let sizeOfArray = 350;
-let dummy = [];
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function App() {
-  //Initilizing the array.
-  const [array, setArray] = useState(dummy);
+  const [array, setArray] = useState([]);
   const [WelcomeFlag, setWelcomeFlag] = useState(true);
-  //updating the original array
+
   function updateArray(props) {
-    setArray(() => {
-      return [...props];
-    })
+    setArray([...props]);
   }
-  //Generating the new array.
+
   function generateArray() {
     setWelcomeFlag(false);
-    for (let i = 0; i < sizeOfArray; i++) {
-      dummy[i] = Math.floor((Math.random() * 10000) + 1);
-    }
-    setArray(() => {
-      return [...dummy];
-    })
+    const newArray = Array.from({ length: 50 }, () => Math.floor(Math.random() * 10000) + 1);
+    setArray(newArray);
   }
-  //reseting the array;
+
   function resetArray() {
     setWelcomeFlag(true);
-    setArray(() => {
-      return [];
-    })
-
-  }
-  function swap(arr, xp, yp) {
-    var temp = arr[xp];
-    arr[xp] = arr[yp];
-    arr[yp] = temp;
+    setArray([]);
   }
 
   async function selectionSort(arr, n) {
-    var i, j, min_idx;
-    // One by one move boundary of unsorted subarray
-    for (i = 0; i < n - 1; i++) {
-      min_idx = i;
-      for (j = i + 1; j < n; j++) {
-        if (arr[j] < arr[min_idx])
+    for (let i = 0; i < n - 1; i++) {
+      let min_idx = i;
+      for (let j = i + 1; j < n; j++) {
+        if (arr[j] < arr[min_idx]) {
           min_idx = j;
+        }
       }
 
-      // Swap the found minimum element with the first element
       swap(arr, min_idx, i);
       updateArray(arr);
-      await sleep(100);
+      await sleep(20);
     }
   }
-  // An optimized version of Bubble Sort
+
   async function bubbleSort(arr, n) {
-    var i, j;
-    for (i = 0; i < n - 1; i++) {
-      for (j = 0; j < n - i - 1; j++) {
+    for (let i = 0; i < n - 1; i++) {
+      for (let j = 0; j < n - i - 1; j++) {
         if (arr[j] > arr[j + 1]) {
           swap(arr, j, j + 1);
           updateArray(arr);
           await sleep(10);
-
         }
       }
-
     }
   }
+
   async function insertionSort(arr, n) {
-    let i, key, j;
-    for (i = 1; i < n; i++) {
-      key = arr[i];
-      j = i - 1;
+    for (let i = 1; i < n; i++) {
+      let key = arr[i];
+      let j = i - 1;
 
       while (j >= 0 && arr[j] > key) {
         arr[j + 1] = arr[j];
-        j = j - 1;
+        updateArray(arr);
+        await sleep(20);
+        j--;
       }
-      updateArray(arr);
-      await sleep(30);
       arr[j + 1] = key;
+      updateArray(arr);
+      await sleep(20);
     }
   }
+
   const states = [];
+
   async function quickSort(arr, start, end) {
     if (start >= end) {
       return;
@@ -116,7 +100,7 @@ function App() {
       if (arr[i] < pivotValue) {
         swap(arr, i, pivotIndex);
         updateArray(arr);
-        await sleep(50);
+        await sleep(30);
         states[pivotIndex] = -1;
         pivotIndex++;
         states[pivotIndex] = 0;
@@ -124,16 +108,17 @@ function App() {
     }
     swap(arr, pivotIndex, end);
     updateArray(arr);
-    await sleep(50);
+    await sleep(30);
 
     for (let i = start; i < end; i++) {
-      if (i != pivotIndex) {
+      if (i !== pivotIndex) {
         states[i] = -1;
       }
     }
 
     return pivotIndex;
   }
+
   async function merge(ele, low, mid, high) {
     const n1 = mid - low + 1;
     const n2 = high - mid;
@@ -141,25 +126,26 @@ function App() {
     let right = new Array(n2);
 
     for (let i = 0; i < n1; i++) {
-      await sleep(10);
+      await sleep(20);
       left[i] = ele[low + i];
     }
     for (let i = 0; i < n2; i++) {
-      await sleep(10);
+      await sleep(20);
       right[i] = ele[mid + 1 + i];
     }
-    await sleep(10);
-    let i = 0, j = 0, k = low;
+    await sleep(20);
+    let i = 0,
+      j = 0,
+      k = low;
     while (i < n1 && j < n2) {
-      await sleep(10);
+      await sleep(20);
 
       if (parseInt(left[i]) <= parseInt(right[j])) {
         ele[k] = left[i];
         updateArray(ele);
         i++;
         k++;
-      }
-      else {
+      } else {
         ele[k] = right[j];
         updateArray(ele);
         j++;
@@ -182,7 +168,6 @@ function App() {
 
   async function mergeSort(ele, l, r) {
     if (l >= r) {
-      //sorting complete
       return;
     }
     const m = l + Math.floor((r - l) / 2);
@@ -190,26 +175,11 @@ function App() {
     await mergeSort(ele, m + 1, r);
     await merge(ele, l, m, r);
   }
-  // function heapSort(){
 
-  // }
-  if (WelcomeFlag) {
-    return (
-      <React.Fragment>
-        <MainHeader />
-        <ContolPanel
-          generateArray={generateArray}
-          resetArray={resetArray}
-          selectionSort={selectionSort}
-          bubbleSort={bubbleSort}
-          insertionSort={insertionSort}
-          quickSort={quickSort}
-          mergeSort={mergeSort}
-          // heapSort={heapSort}
-          arr={array} />
-        <Welcome />
-      </React.Fragment>
-    );
+  function swap(arr, i, j) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
   }
 
   return (
@@ -223,7 +193,8 @@ function App() {
         insertionSort={insertionSort}
         quickSort={quickSort}
         mergeSort={mergeSort}
-        arr={array} />
+        arr={array}
+      />
       <SortingAlgorithmVisulisor array={array} />
     </React.Fragment>
   );
